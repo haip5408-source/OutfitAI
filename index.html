@@ -59,19 +59,34 @@ upload.onchange = e => {
   preview.src = URL.createObjectURL(file);
 };
 
-function fakeAI() {
+async function fakeAI() {
   const status = document.getElementById("status");
-  status.innerText = "AI is generating outfit...";
-  setTimeout(() => {
-    status.innerText = "Outfit generated ✔";
-    const img = document.createElement("img");
-img.src = preview.src;
-img.style.width = "200px";
-img.style.marginTop = "20px";
-document.body.appendChild(img);
+  status.innerText = "Uploading to AI...";
 
-  }, 2000);
+  const file = upload.files[0];
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const res = await fetch("/api/edit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+
+    status.innerText = "Outfit generated ✔";
+
+    const img = document.createElement("img");
+    img.src = data.data[0].url;
+    document.body.appendChild(img);
+
+  } catch (err) {
+    status.innerText = "Error generating outfit";
+    console.error(err);
+  }
 }
+
 </script>
 
 </body>
