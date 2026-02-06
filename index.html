@@ -4,29 +4,69 @@
   <title>OutfitAI</title>
   <style>
     body {
-      background: #0b0b0b;
+      background: #0b0b0f;
       color: white;
       font-family: Arial;
       text-align: center;
-      margin-top: 100px;
+      padding: 40px;
     }
+
+    .box {
+      border: 2px dashed #444;
+      padding: 40px;
+      margin: 20px auto;
+      width: 300px;
+    }
+
     button {
       padding: 12px 20px;
-      font-size: 16px;
-      background: #00ff99;
+      background: #00ffae;
       border: none;
+      font-weight: bold;
       cursor: pointer;
+      margin-top: 20px;
+    }
+
+    img {
+      max-width: 200px;
+      margin-top: 20px;
+      border-radius: 10px;
     }
   </style>
 </head>
+
 <body>
 
-<h1>OutfitAI 👗✨</h1>
-<p>Upload your photo to try outfits</p>
+<h1>OutfitAI ✨</h1>
+<p>Upload your photo to generate outfits</p>
 
-<button onclick="alert('AI coming soon 😄')">
-Try Outfit AI
-</button>
+<div class="box">
+  <input type="file" id="upload">
+  <br>
+  <img id="preview">
+</div>
+
+<button onclick="fakeAI()">Generate Outfit</button>
+
+<p id="status"></p>
+
+<script>
+const upload = document.getElementById("upload");
+const preview = document.getElementById("preview");
+
+upload.onchange = e => {
+  const file = e.target.files[0];
+  preview.src = URL.createObjectURL(file);
+};
+
+function fakeAI() {
+  const status = document.getElementById("status");
+  status.innerText = "AI is generating outfit...";
+  setTimeout(() => {
+    status.innerText = "Outfit generated ✔";
+  }, 2000);
+}
+</script>
 
 </body>
 </html>
