@@ -64,6 +64,12 @@ function fakeAI() {
   status.innerText = "AI is generating outfit...";
   setTimeout(() => {
     status.innerText = "Outfit generated ✔";
+    const img = document.createElement("img");
+img.src = preview.src;
+img.style.width = "200px";
+img.style.marginTop = "20px";
+document.body.appendChild(img);
+
   }, 2000);
 }
 </script>
